@@ -4,6 +4,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
+## Link - https://nishant-666.github.io/React-tailwind-blog
+
 In the project directory, you can run:
 
 ### `yarn start`
