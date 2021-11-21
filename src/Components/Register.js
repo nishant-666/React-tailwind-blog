@@ -23,6 +23,7 @@ export default function Register() {
 
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredentials) => {
+                    localStorage.setItem('User Email', userCredentials.user.email)
                     sessionStorage.setItem('Auth Key', userCredentials.user.accessToken)
                     navigate('/readBlogs')
                 })

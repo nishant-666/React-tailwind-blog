@@ -1,3 +1,38 @@
+@media only screen and (max-width: 600px) {
+    .sidebar-main {
+        display: none;
+    }
+    .sidebar-main {
+        display: none;
+    }
+    
+    .sidebar-menu,
+    .sidebar-content {
+        display: none;
+    }
+    
+    .sidebar-menu {
+        display: none;
+    }
+    
+    .sidebar-lists {
+        display: none;
+    
+    }
+    
+    .sidebar-lists:hover {
+        display: none;
+    }
+    
+    a {
+        display: none;
+    }
+    
+    .activeMenu {
+        display: none;
+    }
+}
+
 .sidebar-main {
     height: 100%;
     position: fixed;

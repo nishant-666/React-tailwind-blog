@@ -5,6 +5,8 @@ import './Sidebar.css';
 export default function Sidebar() {
     let navigate = useNavigate();
     const handleLogout = () => {
+        localStorage.removeItem('User Name');
+        localStorage.removeItem('User Email');
         sessionStorage.removeItem('Auth Key');
         navigate('/login')
     }
@@ -16,7 +18,7 @@ export default function Sidebar() {
                         <li className='sidebar-lists'>Create Blogs</li>
                     </Link>
                     <Link to={'/readBlogs'}>
-                        <li className='sidebar-lists'>Read Blogs</li>
+                        <li className='sidebar-lists'>Public Blogs</li>
                     </Link>
                     
                     <li className='sidebar-lists' onClick={handleLogout}>Log out</li>
