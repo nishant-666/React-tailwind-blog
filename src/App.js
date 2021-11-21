@@ -5,10 +5,14 @@ import ReadBlogs from './Components/ReadBlogs';
 import CreateBlogs from './Components/CreateBlogs';
 import Register from './Components/Register';
 import Login from './Components/Login';
-import { Route, Routes } from 'react-router-dom';
-
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 const databaseRef = collection(database, 'react-blogs')
 function App() {
+  let navigate = useNavigate();
+  useEffect(() => {
+    navigate('/React-tailwind-blog/login')
+  }, [])
   return (
     <div className="main-body">
       <Routes>
