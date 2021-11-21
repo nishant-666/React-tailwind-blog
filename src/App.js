@@ -12,15 +12,15 @@ function App() {
   return (
     <div className="main-body">
       <Routes>
-        <Route exact path='/register' element={<Register />} />
-        <Route exact path='/login' element={<Login />} />
+        <Route exact path='/React-tailwind-blog/register' element={<Register />} />
+        <Route exact path='/React-tailwind-blog/login' element={<Login />} />
       </Routes>
       <div className="blog-body">
         <Routes>
-          <Route exact path='/readBlogs' element={<ReadBlogs
+          <Route exact path='/React-tailwind-blog/readBlogs' element={<ReadBlogs
             databaseRef={databaseRef}
           />} />
-          <Route exact path='/createBlogs' element={<CreateBlogs
+          <Route exact path='/React-tailwind-blog/createBlogs' element={<CreateBlogs
             databaseRef={databaseRef}
           />} />
         </Routes>

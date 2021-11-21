@@ -13,7 +13,7 @@ export default function Register() {
         let userToken = sessionStorage.getItem('Auth Key')
 
         if (userToken) {
-            navigate('/readBlogs')
+            navigate('/React-tailwind-blog/readBlogs')
         }
     }, [])
 
@@ -25,7 +25,7 @@ export default function Register() {
                 .then((userCredentials) => {
                     localStorage.setItem('User Email', userCredentials.user.email)
                     sessionStorage.setItem('Auth Key', userCredentials.user.accessToken)
-                    navigate('/readBlogs')
+                    navigate('/React-tailwind-blog/readBlogs')
                 })
                 .catch((error) => {
                     if (error.code === 'auth/email-already-in-use') {
@@ -73,7 +73,7 @@ export default function Register() {
                                             Create your account..
                                         </button>
                                         <button
-                                            onClick={() => navigate('/login')}
+                                            onClick={() => navigate('/React-tailwind-blog/login')}
                                             class="login-btn px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">
                                             Login
                                         </button>

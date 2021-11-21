@@ -40,7 +40,7 @@ export default function CreateBlogs({ databaseRef }) {
                 blogPost: blogPost
             })
                 .then(() => {
-                    navigate('/readBlogs')
+                    navigate('/React-tailwind-blog/readBlogs')
                 })
         }
         else {
@@ -79,13 +79,13 @@ export default function CreateBlogs({ databaseRef }) {
     useEffect(() => {
         let userToken = sessionStorage.getItem('Auth Key')
         if (!userToken) {
-            navigate('/login')
+            navigate('/React-tailwind-blog/login')
         }
     }, [])
     return (
         <div className="create-form-container">
             <div className="read-button">
-                <button class="btn btn-green" onClick={() => navigate('/readBlogs')}>
+                <button class="btn btn-green" onClick={() => navigate('/React-tailwind-blog/readBlogs')}>
                     Read Blogs
                 </button>
             </div>

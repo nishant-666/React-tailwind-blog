@@ -8,16 +8,16 @@ export default function Sidebar() {
         localStorage.removeItem('User Name');
         localStorage.removeItem('User Email');
         sessionStorage.removeItem('Auth Key');
-        navigate('/login')
+        navigate('/React-tailwind-blog/login')
     }
     return (
         <div className="sidebar-main">
             <div className="sidebar-menu">
                 <ul>
-                    <Link to={'/createBlogs'}>
+                    <Link to={'/React-tailwind-blog/createBlogs'}>
                         <li className='sidebar-lists'>Create Blogs</li>
                     </Link>
-                    <Link to={'/readBlogs'}>
+                    <Link to={'/React-tailwind-blog/readBlogs'}>
                         <li className='sidebar-lists'>Public Blogs</li>
                     </Link>
                     
