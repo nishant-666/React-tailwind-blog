@@ -1,0 +1,43 @@
+.sidebar-main {
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #212121;
+    overflow: hidden;
+    width: 30%;
+}
+
+.sidebar-menu,
+.sidebar-content {
+    padding: 20px;
+}
+
+.sidebar-menu {
+    width: 250px;
+    color: whitesmoke;
+    height: 100vh;
+    font-family: "Poppins", sans-serif;
+}
+
+.sidebar-lists {
+    padding: 15px;
+    font-size: 25px;
+    cursor: pointer;
+    color: white;
+
+}
+
+.sidebar-lists:hover {
+    color: #9e9e9e;
+}
+
+a {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.activeMenu {
+    color: #616161;
+}
