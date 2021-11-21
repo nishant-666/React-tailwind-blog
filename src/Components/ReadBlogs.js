@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { getDocs } from 'firebase/firestore';
 import Sidebar from './Sidebar';
+import { useNavigate } from 'react-router-dom'
 export default function ReadBlogs({ databaseRef }) {
+    let navigate = useNavigate();
     const [blogs, setBlogs] = useState([])
     const getBlogs = async () => {
         const blogs = await getDocs(databaseRef);
         setBlogs(blogs.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
     }
     useEffect(() => {
-        getBlogs();
+        let userToken = sessionStorage.getItem('Auth Key')
+        if (!userToken) {
+            navigate('/login')
+        }
+        else{
+            getBlogs();
+        }
     }, [])
     return (
         <div className="read-form-container">

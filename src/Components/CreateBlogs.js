@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Select } from 'semantic-ui-react';
 import { Editor } from "react-draft-wysiwyg";
 import { useNavigate } from 'react-router-dom'
@@ -34,6 +34,13 @@ export default function CreateBlogs({ databaseRef }) {
                 navigate('/readBlogs')
             })
     }
+
+    useEffect(() => {
+        let userToken = sessionStorage.getItem('Auth Key')
+        if (!userToken) {
+            navigate('/login')
+        }
+    }, [])
     return (
         <div className="create-form-container">
             <div className="sidebar-body">
