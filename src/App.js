@@ -11,20 +11,20 @@ const databaseRef = collection(database, 'react-blogs')
 function App() {
   let navigate = useNavigate();
   useEffect(() => {
-    navigate('/React-tailwind-blog/login')
+    navigate('/login')
   }, [])
   return (
     <div className="main-body">
       <Routes>
-        <Route exact path='/React-tailwind-blog/register' element={<Register />} />
-        <Route exact path='/React-tailwind-blog/login' element={<Login />} />
+        <Route exact path='/register' element={<Register />} />
+        <Route exact path='/login' element={<Login />} />
       </Routes>
       <div className="blog-body">
         <Routes>
-          <Route exact path='/React-tailwind-blog/readBlogs' element={<ReadBlogs
+          <Route exact path='/readBlogs' element={<ReadBlogs
             databaseRef={databaseRef}
           />} />
-          <Route exact path='/React-tailwind-blog/createBlogs' element={<CreateBlogs
+          <Route exact path='/createBlogs' element={<CreateBlogs
             databaseRef={databaseRef}
           />} />
         </Routes>

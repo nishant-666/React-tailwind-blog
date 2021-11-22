@@ -9,13 +9,13 @@ export default function NoData() {
         localStorage.removeItem('User Name');
         localStorage.removeItem('User Email');
         sessionStorage.removeItem('Auth Key');
-        navigate('/React-tailwind-blog/login')
+        navigate('/login')
     }
     return (
         <div className="no-data-container">
             <img className="no-data-image" src={NoDataImg} />
             <h1 className="no-data-text">Please Write Some Blogs! ☹️</h1>
-            <button class="btn btn-green" onClick={() => navigate('/React-tailwind-blog/createBlogs')}>
+            <button class="btn btn-green" onClick={() => navigate('/createBlogs')}>
                 Write a Blog..
             </button>
 

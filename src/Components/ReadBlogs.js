@@ -18,7 +18,7 @@ export default function ReadBlogs({ databaseRef }) {
     useEffect(() => {
         let userToken = sessionStorage.getItem('Auth Key')
         if (!userToken) {
-            navigate('/React-tailwind-blog/login')
+            navigate('/login')
         }
         else {
             getBlogs();
@@ -29,7 +29,7 @@ export default function ReadBlogs({ databaseRef }) {
         localStorage.removeItem('User Name');
         localStorage.removeItem('User Email');
         sessionStorage.removeItem('Auth Key');
-        navigate('/React-tailwind-blog/login')
+        navigate('/login')
     }
 
     return (
@@ -41,7 +41,7 @@ export default function ReadBlogs({ databaseRef }) {
             {blogs.length > 0 ? (
                 <div className="flex-inline">
                     <div className="create-button">
-                        <button class="btn btn-green" onClick={() => navigate('/React-tailwind-blog/createBlogs')}>
+                        <button class="btn btn-green" onClick={() => navigate('/createBlogs')}>
                             Create Blogs
                         </button>
                     </div>
