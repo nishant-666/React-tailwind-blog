@@ -11,7 +11,7 @@ export default function Topbar() {
     setPhotoURL(localStorage.getItem('PhotoURL'))
   }, [])
   return (
-    <div className="float-right">
+    <div className="right-float">
       <div className="topbar-container">
         <Image size="mini" src={photoURL ? photoURL : UserImage} avatar />
         <p className="welcome-text">Welcome, {username ? username : userEmail}</p>

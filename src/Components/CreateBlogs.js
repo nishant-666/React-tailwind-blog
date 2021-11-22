@@ -9,6 +9,7 @@ import Topbar from './Topbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import moment from 'moment'
 const countryOptions = [
     { key: 'private', value: 'private', text: 'Private' },
     { key: 'public', value: 'public', text: 'Public' },
@@ -17,6 +18,7 @@ const countryOptions = [
 export default function CreateBlogs({ databaseRef }) {
     let navigate = useNavigate();
     const [title, setTitle] = useState('');
+    const [tag, setTag] = useState('');
     const [banner, setBanner] = useState('');
     const [loading, setLoading] = useState(false);
     const [file, setFile] = useState({});
@@ -36,6 +38,8 @@ export default function CreateBlogs({ databaseRef }) {
             addDoc(databaseRef, {
                 title: title,
                 privacy: privacy,
+                tag: tag,
+                timestamp: moment().format('LL'),
                 author: username ? username : userEmail,
                 banner: banner,
                 blogPost: blogPost
@@ -127,6 +131,15 @@ export default function CreateBlogs({ databaseRef }) {
                     />
                 </Form.Field>
                 <Form.Field>
+                    <label className="form-label">Tags</label>
+                    <input
+                        className="form-input"
+                        placeholder='Please Enter the Tags'
+                        value={tag}
+                        onChange={(e) => setTag(e.target.value)}
+                    />
+                </Form.Field>
+                <Form.Field>
                     <label className="form-label">Banner Image</label>
                     <input type="file" id="actual-btn" hidden onChange={selectFile} />
                     <div className="flex-inline">
@@ -156,7 +169,7 @@ export default function CreateBlogs({ databaseRef }) {
                         Submit your Blog
                     </button>
                 </div>
-                <div className="mobile-only">
+                <div className="mobile-only pb-5">
                     <Divider horizontal>Or</Divider>
                     <p className="read-blogs-text">Don't want to write..</p>
                     <button class="btn btn-green btn-block" onClick={readBlogs}>
