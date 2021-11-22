@@ -273,7 +273,7 @@
 .three-dots {
   position: absolute;
   right: 40px;
-  top: 155px;
+ 
   z-index: 100;
   cursor: pointer;
 }
@@ -320,7 +320,6 @@
   .three-dots {
     position: absolute;
     right: 40px;
-    top: 200px;
     cursor: pointer;
     z-index: 100;
   }
