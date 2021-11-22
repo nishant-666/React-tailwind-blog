@@ -5,10 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import { Dimmer, Loader, Image } from 'semantic-ui-react';
 import Topbar from './Topbar';
 import NoData from './NoData';
+import UserImage from '../assets/userImage.png';
 export default function ReadBlogs({ databaseRef }) {
     let navigate = useNavigate();
     const [blogs, setBlogs] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
+    const [photoURL, setPhotoURL] = useState('')
     const getBlogs = async () => {
         const blogs = await getDocs(databaseRef);
         setBlogs(blogs.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
@@ -22,6 +24,7 @@ export default function ReadBlogs({ databaseRef }) {
         }
         else {
             getBlogs();
+            setPhotoURL(localStorage.getItem('PhotoURL'))
         }
     }, [])
 
@@ -66,10 +69,13 @@ export default function ReadBlogs({ databaseRef }) {
                                 <div class="blog-posts">
                                     <div class="blog-content">
                                         <div className="banner-container">
-                                            <Image src={blog.banner} />
+                                            <Image fluid src={blog.banner} />
                                         </div>
-                                        <h1 class="blog-title">{blog.title}</h1>
-                                        <p class="author-name mt-4">By {blog.author}</p>
+                                        <p class="blog-title">{blog.title}</p>
+                                        <div className="author-container">
+                                            <Image size="mini" src={photoURL ? photoURL : UserImage} avatar />
+                                            <p class="author-name">{blog.author}</p>
+                                        </div>
                                         <p class="blog-post">
                                             {blog.blogPost.map((blogPost) => {
                                                 return (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Select, Button, Icon } from 'semantic-ui-react';
+import { Form, Select, Button, Icon, Divider } from 'semantic-ui-react';
 import { Editor } from "react-draft-wysiwyg";
 import { useNavigate } from 'react-router-dom'
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
@@ -17,12 +17,13 @@ const countryOptions = [
 export default function CreateBlogs({ databaseRef }) {
     let navigate = useNavigate();
     const [title, setTitle] = useState('');
-    const [author, setAuthor] = useState('');
     const [banner, setBanner] = useState('');
     const [loading, setLoading] = useState(false);
     const [file, setFile] = useState({});
     const [privacy, setPrivacy] = useState(null);
-    const [blogPost, setBlogPost] = useState([])
+    const [blogPost, setBlogPost] = useState([]);
+    const [username, setUserName] = useState('')
+    const [userEmail, setUserEmail] = useState('');
     const getPrivacy = (e) => {
         setPrivacy(e.target.outerText)
     }
@@ -31,11 +32,11 @@ export default function CreateBlogs({ databaseRef }) {
     }
 
     const submitBlogs = () => {
-        if (title && privacy && author && blogPost) {
+        if (title && privacy && blogPost) {
             addDoc(databaseRef, {
                 title: title,
                 privacy: privacy,
-                author: author,
+                author: username ? username : userEmail,
                 banner: banner,
                 blogPost: blogPost
             })
@@ -77,21 +78,23 @@ export default function CreateBlogs({ databaseRef }) {
     }
 
     useEffect(() => {
-        let userToken = sessionStorage.getItem('Auth Key')
+        let userToken = sessionStorage.getItem('Auth Key');
+        setUserName(localStorage.getItem('User Name'));
+        setUserEmail(localStorage.getItem('User Email'))
         if (!userToken) {
             navigate('/login')
         }
     }, [])
+
+    const readBlogs = () => {
+        window.scrollTo(0, 0)
+        navigate('/readBlogs')
+    }
     return (
         <div className="create-form-container">
-            <div className="read-button">
-                <button class="btn btn-green" onClick={() => navigate('/readBlogs')}>
-                    Read Blogs
-                </button>
-            </div>
-            <h3 className="blog-text">Create a Blog..</h3>
-            <ToastContainer />
             <Topbar />
+            <p className="blog-text">Create a Blog..</p>
+            <ToastContainer />
             <div className="sidebar-body">
                 <Sidebar />
             </div>
@@ -140,17 +143,24 @@ export default function CreateBlogs({ databaseRef }) {
                     </div>
                 </Form.Field>
 
-                <Form.Field>
-                    <label className="form-label">Author Name</label>
+                {/* <Form.Field>
+                    <label className="form-label">Author</label>
                     <input
                         className="form-input"
                         placeholder='Please Enter the Author Name'
                         onChange={(e) => setAuthor(e.target.value)}
                     />
-                </Form.Field>
+                </Form.Field> */}
                 <div className="btn-container">
                     <button class="btn btn-green" onClick={submitBlogs}>
                         Submit your Blog
+                    </button>
+                </div>
+                <div className="mobile-only">
+                    <Divider horizontal>Or</Divider>
+                    <p className="read-blogs-text">Don't want to write..</p>
+                    <button class="btn btn-green btn-block" onClick={readBlogs}>
+                        Read Blogs
                     </button>
                 </div>
             </Form>

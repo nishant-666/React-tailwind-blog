@@ -22,6 +22,7 @@ export default function Register() {
     const authWithGoogle = () => {
         signInWithPopup(auth, provider)
         .then((result) => {
+            localStorage.setItem('PhotoURL', result.user.photoURL)
             localStorage.setItem('User Name', result.user.displayName);
             sessionStorage.setItem('Auth Key', result.user.accessToken)
             navigate('/readBlogs')

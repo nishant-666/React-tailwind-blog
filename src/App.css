@@ -3,7 +3,7 @@
 .create-form-container {
   padding: 20px;
   height: 100vh;
-  margin-top: 50px;
+  margin-top: 10px;
 }
 
 .intro-text-container{
@@ -19,10 +19,15 @@
   height: 100vh;
 }
 
+.user-image{
+  width: 5%;
+}
+
 .btn {
   @apply py-2 px-4 font-semibold rounded-lg shadow-md;
   width: auto;
   height: 40px;
+  font-family: "M PLUS 1", sans-serif;
 }
 .btn-green {
   @apply text-white bg-green-500 hover:bg-green-700;
@@ -53,7 +58,7 @@
   display: flex;
   width: 100%;
   margin: 0 auto;
-  margin-top: 40px;
+  margin-top: 60px;
   padding: 1.5rem;
   border-radius: 1rem;
   border-top: 3px solid #ff9800;
@@ -66,19 +71,23 @@
 }
 .blog-title {
   color: #1a202c;
+  font-size: 30px;
+  font-weight: 700;
+  margin-top: 30px;
   font-family: "Poppins", sans-serif;
 }
 .author-name{
-  color: #212121;
-  font-size: 1.3rem;
-  font-weight: bold;
-  line-height: 1.5;
+  font-size: 18px;
+  margin: 4px 10px 0px 10px !important;
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 700 !important;
 }
 
 .blog-post {
   color: #718096;
   font-size: 20px;
   line-height: 1.5;
+  margin-top: 20px;
 }
 
 .sidebar-main {
@@ -152,7 +161,7 @@
   border: 1px solid #e0e0e0;
   padding: 7px 10px 7px 10px;
   height: auto;
-  width: auto;
+  width: 300px;
   border-radius: 10px;
   margin-top: 10px !important;
   font-family: "M PLUS 1", sans-serif;
@@ -161,24 +170,25 @@
 }
 
 .flex-inline {
-  display: flex;
-  justify-content: center;
+  display: none;
 }
 
 .upload-button {
   margin-top: 10px !important;
   height: 40px;
   margin-left: 10px !important;
-  border-radius: 15px !important;
+  border-radius: 7px !important;
 }
 
 .banner-container {
-  width: 90%;
+  width: 100%;
 }
 
 .no-data-text {
   font-family: "M PLUS 1", sans-serif;
   text-align: center;
+  font-size: 30px;
+  font-weight: 700;
 }
 
 .no-data-container {
@@ -206,21 +216,91 @@
 
 .blog-text{
   font-family: "M PLUS 1", sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  margin-top: 50px;
 }
+
+.logout-mobile{
+  display: none;
+}
+
 
 .no-data-para{
   font-family: "Poppins", sans-serif;
 }
 
+.mobile-only{
+  display: none;
+}
+
+.topbar-container{
+  display: flex;
+}
+
+.author-container{
+  display: flex;
+  margin-top: 20px;
+}
+
+.welcome-text{
+  font-size: 18px;
+  margin: 4px 10px 0px 10px !important;
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 700 !important;
+}
+
+
 @media only screen and (max-width: 600px) {
+  .flex-inline {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .blog-title {
+    color: #1a202c;
+    font-size: 25px;
+    font-weight: 700;
+    margin-top: 20px;
+    font-family: "Poppins", sans-serif;
+  }
+
+  .author-name{
+    color: #212121;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-top: -15px;
+  }
+
   .no-data-image {
     width: 100%;
+  }
+
+  .logout-mobile{
+    display: flex;
+  }
+
+  .btn-block{
+    width: 100%;
+  }
+
+  .mobile-only{
+    display: block;
+    padding-bottom: 30px;
+  }
+  
+  .read-blogs-text{
+    font-size: 20px;
+    font-weight: 700;
+    color: #757575;
+    font-family: "M PLUS 1", sans-serif;
+    margin-top: 20px;
   }
 
   .read-button{
     display: flex;
     justify-content: center;
-    margin-top: 20px;
   }
 
   .blog-body {
@@ -234,16 +314,27 @@
     padding-bottom: 10px;
   }
 
+  .welcome-text{
+    font-size: 18px;
+    margin: 5px 10px 0px 10px !important;
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 700 !important;
+  }
+
+  .topbar-container{
+    display: flex;
+    margin-top: -20px;
+  }
+
+  .author-container{
+    display: flex;
+    margin-top: 20px;
+  }
+
   .menu-icon{
     position: absolute;
     left: 10px;
     top: 10px;
-  }
-
-  .welcome-text-container{
-    position: absolute;
-    right: 10px;
-    top: 15px;
   }
 
   .create-button{

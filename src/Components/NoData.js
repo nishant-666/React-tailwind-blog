@@ -14,15 +14,16 @@ export default function NoData() {
     return (
         <div className="no-data-container">
             <img className="no-data-image" src={NoDataImg} />
-            <h1 className="no-data-text">Please Write Some Blogs! ☹️</h1>
-            <button class="btn btn-green" onClick={() => navigate('/createBlogs')}>
+            <p className="no-data-text">No Blogs Found.. ☹️</p>
+            <button class="btn btn-green mt-3" onClick={() => navigate('/createBlogs')}>
                 Write a Blog..
             </button>
 
-            <button class="btn btn-green mt-3" onClick={handleLogout}>
-                Log out
-            </button>
-
+            <div className="logout-mobile">
+                <button class="btn btn-green mt-3" onClick={handleLogout}>
+                    Log out
+                </button>
+            </div>
         </div>
     )
 }
