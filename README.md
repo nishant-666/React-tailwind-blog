@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
-## Link - https://nishant-666.github.io/React-tailwind-blog
+## Link - https://firegram-e4c96.web.app
 
 In the project directory, you can run:
 
