@@ -56,8 +56,7 @@
 
 .blog-posts {
   display: flex;
-  width: 100%;
-  margin: 0 auto;
+  width: 55%;
   margin-top: 60px;
   padding: 1.5rem;
   border-radius: 1rem;
@@ -68,22 +67,24 @@
 .blog-content {
   margin-left: 1.5rem;
   padding-top: 0.25rem;
+  width: 100%;
 }
 .blog-title {
-  color: #1a202c;
+  color: #424242;
   font-size: 2.5rem;
   font-weight: 700;
   margin-top: 30px;
   font-family: "Poppins", sans-serif;
+  text-transform: capitalize;
 }
 .author-name {
-  font-size: 18px;
-  margin: 4px 10px 0px 10px !important;
+  font-size: 1.3rem;
+  margin: 4px 10px 0px 4px !important;
+  color: #757575;
   font-family: "Poppins", sans-serif !important;
-  font-weight: 700 !important;
 }
 
-.tags-container{
+.tags-container {
   color: #1a237e;
   cursor: pointer;
 }
@@ -106,7 +107,7 @@
 }
 
 .blog-body {
-  width: 70%;
+  width: 80%;
   position: absolute;
   right: 0px;
 }
@@ -174,9 +175,14 @@
 }
 
 .banner-container {
-  width: 85%;
+  width: 450px;
   padding: 0px 0 0 0;
-  margin-top: 30px;
+  margin-left: 50px;
+}
+
+.blog-main {
+  display: flex;
+  /* justify-content: space-between; */
 }
 
 .banner-image {
@@ -260,7 +266,8 @@
 
 .author-container {
   display: flex;
-  margin-top: 20px;
+  margin-top: 10px;
+  width: 100%;
 }
 
 .welcome-text {
@@ -271,32 +278,55 @@
 }
 
 .three-dots {
-  position: absolute;
-  right: 40px;
- 
-  z-index: 100;
+  float: right;
   cursor: pointer;
 }
-.delete-blog{
-  font-size: 1.2rem;
+.delete-blog {
+  font-size: 1rem;
   font-family: "Poppins", sans-serif !important;
   cursor: pointer;
   color: #616161;
 }
 
-.popup-container{
+.popup-container {
   width: auto;
-  text-align: center;
+  padding: 5px;
 }
 
-.blog-timestamp{
-  font-size: 16px;
+.popup{
+  border-radius: 0px !important;
+}
+
+.blog-timestamp {
+  font-size: 1rem;
   margin-top: 20px;
   color: #616161;
   font-family: "Poppins", sans-serif !important;
 }
 
 @media only screen and (max-width: 600px) {
+  .blog-posts {
+    display: flex;
+    width: 100%;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    border-top: 3px solid #ff9800;
+    background-color: #fff;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  .blog-post {
+    color: #718096;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-top: 20px;
+  }
+
+  .blogs-btn{
+    margin-top: 10px;
+  }
   .flex-inline {
     display: flex;
     justify-content: center;
@@ -309,7 +339,7 @@
     font-weight: 700;
     margin-top: 20px;
     text-align: center;
-  }  
+  }
 
   .banner-container {
     width: 85%;
@@ -318,14 +348,12 @@
   }
 
   .three-dots {
-    position: absolute;
-    right: 40px;
+    float: right;
     cursor: pointer;
-    z-index: 100;
   }
 
   .blog-title {
-    color: #1a202c;
+    color: #424242;
     font-size: 1.5rem;
     font-weight: 700;
     margin-top: 20px;
@@ -333,10 +361,10 @@
   }
 
   .author-name {
-    color: #212121;
-    font-size: 1.3rem;
-    font-weight: bold;
-    margin-top: -15px;
+    color: #757575;
+    font-size: 1.1rem;
+    position: relative;
+    top: 2px;
   }
 
   .no-data-image {
@@ -401,7 +429,7 @@
 
   .author-container {
     display: flex;
-    margin-top: 20px;
+    margin-top: 0px;
   }
 
   .menu-icon {
@@ -410,8 +438,8 @@
     top: 10px;
   }
 
-  .delete-blog{
-    font-size: 1.2rem;
+  .delete-blog {
+    font-size: 1rem;
     cursor: pointer;
     font-family: "Poppins", sans-serif !important;
     color: #616161;
@@ -427,5 +455,16 @@
     display: flex;
     justify-content: center;
     margin-top: 10px;
+  }
+/* 
+  .avatar-img {
+    display: none !important;
+  } */
+
+  .blog-timestamp {
+    font-size: 0.8rem;
+    margin-top: 20px;
+    color: #616161;
+    font-family: "Poppins", sans-serif !important;
   }
 }

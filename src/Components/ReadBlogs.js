@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { getDocs, doc, deleteDoc } from 'firebase/firestore';
+import { getDocs, doc, deleteDoc, addDoc } from 'firebase/firestore';
 import Sidebar from './Sidebar';
 import { useNavigate } from 'react-router-dom';
-import { Dimmer, Loader, Image, Popup, Button, Icon } from 'semantic-ui-react';
+import { Dimmer, Loader, Image, Popup, Divider, Icon } from 'semantic-ui-react';
 import Topbar from './Topbar';
 import NoData from './NoData';
 import UserImage from '../assets/userImage.png';
@@ -10,11 +10,11 @@ import { database } from '../firebase-config';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BsThreeDotsVertical } from "react-icons/bs";
-export default function ReadBlogs({ databaseRef }) {
+export default function ReadBlogs({ databaseRef, savedRef }) {
     let navigate = useNavigate();
     const [blogs, setBlogs] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
-    const [photoURL, setPhotoURL] = useState('')
+    const [userName, setUsername] = useState('')
     const getBlogs = async () => {
         const blogs = await getDocs(databaseRef);
         setBlogs(blogs.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
@@ -26,8 +26,8 @@ export default function ReadBlogs({ databaseRef }) {
             navigate('/login')
         }
         else {
+            setUsername(localStorage.getItem('User Name'))
             getBlogs();
-            setPhotoURL(localStorage.getItem('PhotoURL'))
         }
     }, [])
 
@@ -44,6 +44,25 @@ export default function ReadBlogs({ databaseRef }) {
             .then(() => {
                 getBlogs()
                 toast.success("Data Deleted Successfully!", {
+                    pauseOnHover: true
+                });
+            })
+    }
+
+    const handleSave = (blog) => {
+        addDoc(savedRef, {
+            userEmail: localStorage.getItem('User Email'),
+            title: blog.title,
+            privacy: blog.privacy,
+            tag: blog.tag,
+            avatar: blog.avatar,
+            timestamp: blog.timestamp,
+            author: blog.author,
+            banner: blog.banner,
+            blogPost: blog.blogPost
+        })
+            .then(() => {
+                toast.success("Blog Saved Successfully!", {
                     pauseOnHover: true
                 });
             })
@@ -66,6 +85,14 @@ export default function ReadBlogs({ databaseRef }) {
                             Log out
                         </button>
                     </div>
+                    <div className="create-button">
+                        <button class="btn btn-green" onClick={() => navigate('/savedBlogs')}>
+                            Saved Blogs
+                        </button>
+                        <button class="btn btn-green ml-3" onClick={() => navigate('/myBlogs')}>
+                            My Blogs
+                        </button>
+                    </div>
                 </div>
             ) : (
                 ""
@@ -83,44 +110,60 @@ export default function ReadBlogs({ databaseRef }) {
                                     <div class="blog-content">
                                         <div className="three-dots">
                                             <Popup
+                                                className="popup"
                                                 on='click'
                                                 position='bottom right'
-                                                trigger={<BsThreeDotsVertical size="35px" />}
+                                                trigger={<BsThreeDotsVertical size="1.5rem" />}
                                             >
                                                 <div className="popup-container">
-                                                    <p className="delete-blog" onClick={() => handleDelete(blog.id)}>
-                                                        <Icon size="large" name="trash" />
-                                                        Delete Post
+                                                    {blog.author === userName ? (
+                                                        <div>
+                                                            <p className="delete-blog" onClick={() => handleDelete(blog.id)}>
+                                                                <Icon size="large" name="trash" />
+                                                                Delete Post
+                                                            </p>
+                                                            <Divider />
+                                                        </div>
+                                                    ) : (
+                                                        ""
+                                                    )}
+                                                    <p className="delete-blog" onClick={() => handleSave(blog)}>
+                                                        <Icon size="large" name="save" />
+                                                        Save this Post
                                                     </p>
                                                 </div>
                                             </Popup>
                                         </div>
-                                        <div className="author-container">
-                                            <Image size="mini" src={photoURL ? photoURL : UserImage} avatar />
-                                            <p class="author-name">{blog.author}</p>
+                                        <div className="blog-main">
+                                            <div>
+                                                <p class="blog-timestamp">{blog.timestamp} / <span className="tags-container">{blog.tag}</span></p>
+                                                <p class="blog-title">{blog.title}</p>
+                                                <div className="author-container">
+                                                    <Image className="avatar-img" size="mini" src={blog.avatar ? blog.avatar : UserImage} avatar />
+                                                    <p class="author-name">{blog.author.substring(0,21)}</p>
+                                                </div>
+                                                <p class="blog-post">
+                                                    {blog.blogPost.map((blogPost) => {
+                                                        return (
+                                                            <p>
+                                                                {blogPost.inlineStyleRanges.length > 0 ?
+                                                                    blogPost.inlineStyleRanges[0].style === 'BOLD' ?
+                                                                        <p className="text-bold">{blogPost.text}</p> :
+                                                                        blogPost.inlineStyleRanges[0].style === 'ITALIC' ?
+                                                                            <p className="italic-text">{blogPost.text}</p> :
+                                                                            blogPost.inlineStyleRanges[0].style === 'UNDERLINE' ?
+                                                                                <p className="underlined-text">{blogPost.text}</p> : <p>{blogPost.text}</p>
+                                                                    : <p>{blogPost.text}</p>
+                                                                }
+                                                            </p>
+                                                        )
+                                                    })}
+                                                </p>
+                                            </div>
+                                            {/* <div className="banner-container">
+                                                <Image  src={blog.banner} className="banner-image" />
+                                            </div> */}
                                         </div>
-                                        <div className="banner-container">
-                                            <Image src={blog.banner} className="banner-image" />
-                                        </div>
-                                        <p class="blog-timestamp">{blog.timestamp} / <span className="tags-container">{blog.tag}</span></p>
-                                        <p class="blog-title">{blog.title}</p>
-                                        <p class="blog-post">
-                                            {blog.blogPost.map((blogPost) => {
-                                                return (
-                                                    <p>
-                                                        {blogPost.inlineStyleRanges.length > 0 ?
-                                                            blogPost.inlineStyleRanges[0].style === 'BOLD' ?
-                                                                <p className="text-bold">{blogPost.text}</p> :
-                                                                blogPost.inlineStyleRanges[0].style === 'ITALIC' ?
-                                                                    <p className="italic-text">{blogPost.text}</p> :
-                                                                    blogPost.inlineStyleRanges[0].style === 'UNDERLINE' ?
-                                                                        <p className="underlined-text">{blogPost.text}</p> : <p>{blogPost.text}</p>
-                                                            : <p>{blogPost.text}</p>
-                                                        }
-                                                    </p>
-                                                )
-                                            })}
-                                        </p>
                                     </div>
                                 </div>
                             )

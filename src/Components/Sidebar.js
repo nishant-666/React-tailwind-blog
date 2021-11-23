@@ -20,7 +20,12 @@ export default function Sidebar() {
                     <Link to={'/readBlogs'}>
                         <li className='sidebar-lists'>Public Blogs</li>
                     </Link>
-                    
+                    <Link to={'/myBlogs'}>
+                        <li className='sidebar-lists'>My Blogs</li>
+                    </Link>
+                    <Link to={'/savedBlogs'}>
+                        <li className='sidebar-lists'>Saved Blogs</li>
+                    </Link>
                     <li className='sidebar-lists' onClick={handleLogout}>Log out</li>
                 </ul>
             </div>

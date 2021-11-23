@@ -24,6 +24,7 @@ export default function Register() {
         .then((result) => {
             localStorage.setItem('PhotoURL', result.user.photoURL)
             localStorage.setItem('User Name', result.user.displayName);
+            localStorage.setItem('User Email', result.user.email);
             sessionStorage.setItem('Auth Key', result.user.accessToken)
             navigate('/readBlogs')
         })

@@ -39,6 +39,7 @@ export default function CreateBlogs({ databaseRef }) {
                 title: title,
                 privacy: privacy,
                 tag: tag,
+                avatar: localStorage.getItem('PhotoURL'),
                 timestamp: moment().format('LL'),
                 author: username ? username : userEmail,
                 banner: banner,
@@ -174,6 +175,12 @@ export default function CreateBlogs({ databaseRef }) {
                     <p className="read-blogs-text">Don't want to write..</p>
                     <button class="btn btn-green btn-block" onClick={readBlogs}>
                         Read Blogs
+                    </button>
+                    <button class="btn btn-green btn-block blogs-btn" onClick={() => navigate('/myBlogs')}>
+                        My Blogs
+                    </button>
+                    <button class="btn btn-green btn-block blogs-btn" onClick={() => navigate('/savedBlogs')}>
+                        Saved Blogs
                     </button>
                 </div>
             </Form>
