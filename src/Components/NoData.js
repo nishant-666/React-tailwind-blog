@@ -15,9 +15,9 @@ export default function NoData() {
         <div className="no-data-container">
             <img className="no-data-image" src={NoDataImg} />
             <p className="no-data-text">No Blogs Found.. ☹️</p>
-            <button class="btn btn-green mt-3" onClick={() => navigate('/createBlogs')}>
+            {/* <button class="btn btn-green mt-3" onClick={() => navigate('/createBlogs')}>
                 Write a Blog..
-            </button>
+            </button> */}
 
             <div className="logout-mobile">
                 <button class="btn btn-green mt-3" onClick={handleLogout}>

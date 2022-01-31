@@ -49,6 +49,14 @@ export default function ReadBlogs({ databaseRef, savedRef }) {
             })
     }
 
+    const handleEdit = (data) => {
+        navigate('/createBlogs', {
+            state: {
+                blogData: data,
+            }
+        })
+    }
+
     const handleSave = (blog) => {
         addDoc(savedRef, {
             userEmail: localStorage.getItem('User Email'),
@@ -66,6 +74,14 @@ export default function ReadBlogs({ databaseRef, savedRef }) {
                     pauseOnHover: true
                 });
             })
+    }
+
+    const readOneBlog = (data) => {
+        navigate(`/read/${data.id}`, {
+            state: {
+                blogData: data,
+            }
+        })
     }
 
     return (
@@ -118,6 +134,11 @@ export default function ReadBlogs({ databaseRef, savedRef }) {
                                                 <div className="popup-container">
                                                     {blog.author === userName ? (
                                                         <div>
+                                                            <p className="delete-blog" onClick={() => handleEdit(blog)}>
+                                                                <Icon size="large" name="edit" />
+                                                                Edit Post
+                                                            </p>
+                                                            <Divider />
                                                             <p className="delete-blog" onClick={() => handleDelete(blog.id)}>
                                                                 <Icon size="large" name="trash" />
                                                                 Delete Post
@@ -140,29 +161,16 @@ export default function ReadBlogs({ databaseRef, savedRef }) {
                                                 <p class="blog-title">{blog.title}</p>
                                                 <div className="author-container">
                                                     <Image className="avatar-img" size="mini" src={blog.avatar ? blog.avatar : UserImage} avatar />
-                                                    <p class="author-name">{blog.author.substring(0,21)}</p>
+                                                    <p class="author-name">{blog.author.substring(0, 21)}</p>
                                                 </div>
                                                 <p class="blog-post">
-                                                    {blog.blogPost.map((blogPost) => {
-                                                        return (
-                                                            <p>
-                                                                {blogPost.inlineStyleRanges.length > 0 ?
-                                                                    blogPost.inlineStyleRanges[0].style === 'BOLD' ?
-                                                                        <p className="text-bold">{blogPost.text}</p> :
-                                                                        blogPost.inlineStyleRanges[0].style === 'ITALIC' ?
-                                                                            <p className="italic-text">{blogPost.text}</p> :
-                                                                            blogPost.inlineStyleRanges[0].style === 'UNDERLINE' ?
-                                                                                <p className="underlined-text">{blogPost.text}</p> : <p>{blogPost.text}</p>
-                                                                    : <p>{blogPost.text}</p>
-                                                                }
-                                                            </p>
-                                                        )
-                                                    })}
+                                                    <div dangerouslySetInnerHTML={{ __html: `${blog.blogPost.substring(0, 200)}..` }}></div>
                                                 </p>
+
+                                                <div className='readMore' onClick={() => readOneBlog(blog)}>
+                                                    Read More...
+                                                </div>
                                             </div>
-                                            {/* <div className="banner-container">
-                                                <Image  src={blog.banner} className="banner-image" />
-                                            </div> */}
                                         </div>
                                     </div>
                                 </div>

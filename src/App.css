@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=M+PLUS+1&family=Poppins:wght@400;500;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Sacramento&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=Inter&display=swap');
 
 .create-form-container {
   padding: 20px;
@@ -56,7 +58,7 @@
 
 .blog-posts {
   display: flex;
-  width: 55%;
+  width: 100%;
   margin-top: 60px;
   padding: 1.5rem;
   border-radius: 1rem;
@@ -90,8 +92,8 @@
 }
 
 .blog-post {
-  color: #718096;
-  font-size: 18px;
+  color: #414449;
+  font-size: 2rem;
   line-height: 1.5;
   margin-top: 20px;
 }
@@ -127,6 +129,7 @@
 
 .card-body {
   width: 400px !important;
+  border-top: 5px solid #3f51b5 !important;
 }
 
 .regiser-btn {
@@ -149,6 +152,20 @@
   display: flex;
   justify-content: center;
   margin-top: 20px;
+}
+
+.signup-header h3{
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.signup-header p{
+  text-align: center;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 900;
 }
 
 .file-label {
@@ -175,9 +192,9 @@
 }
 
 .banner-container {
-  width: 450px;
+  width: 100%;
   padding: 0px 0 0 0;
-  margin-left: 50px;
+  margin-top: 20px;
 }
 
 .blog-main {
@@ -342,7 +359,7 @@
   }
 
   .banner-container {
-    width: 85%;
+    width: 100%;
     padding: 0px 0 0 0;
     margin-top: 10px;
   }
@@ -467,4 +484,18 @@
     color: #616161;
     font-family: "Poppins", sans-serif !important;
   }
+}
+
+.react-quill{
+  height: 200px;
+  margin-bottom: 60px;
+}
+
+.readMore{
+  font-size: 30px;
+  color: gray;
+  font-style: italic;
+  cursor: pointer;
+  margin-top: 30px;
+  margin-bottom: 20px;
 }

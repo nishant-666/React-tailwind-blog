@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Select, Button, Icon, Divider } from 'semantic-ui-react';
 import { Editor } from "react-draft-wysiwyg";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { addDoc } from 'firebase/firestore';
+import { addDoc, doc, updateDoc } from 'firebase/firestore';
 import Sidebar from './Sidebar';
 import Topbar from './Topbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { app, database } from '../firebase-config'
+import ReactQuill from 'react-quill';
+import EditorToolbar, { modules, formats } from "./QuillToolbar";
+import 'react-quill/dist/quill.snow.css';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import moment from 'moment'
+import moment from 'moment';
 const countryOptions = [
     { key: 'private', value: 'private', text: 'Private' },
     { key: 'public', value: 'public', text: 'Public' },
@@ -17,20 +21,30 @@ const countryOptions = [
 
 export default function CreateBlogs({ databaseRef }) {
     let navigate = useNavigate();
+    const { state } = useLocation();
     const [title, setTitle] = useState('');
     const [tag, setTag] = useState('');
     const [banner, setBanner] = useState('');
     const [loading, setLoading] = useState(false);
     const [file, setFile] = useState({});
     const [privacy, setPrivacy] = useState(null);
-    const [blogPost, setBlogPost] = useState([]);
+    const [blogPost, setBlogPost] = useState('');
     const [username, setUserName] = useState('')
     const [userEmail, setUserEmail] = useState('');
+    React.useEffect(() => {
+        if (state) {
+            const { blogData } = state;
+            setTitle(blogData.title)
+            setTag(blogData.tag)
+            setPrivacy(blogData.privacy)
+            setBlogPost(blogData.blogPost)
+        }
+    }, [])
     const getPrivacy = (e) => {
         setPrivacy(e.target.outerText)
     }
     const BlogBodyChange = (blog) => {
-        setBlogPost(blog.blocks)
+        setBlogPost(blog)
     }
 
     const submitBlogs = () => {
@@ -52,6 +66,20 @@ export default function CreateBlogs({ databaseRef }) {
         else {
             toast.error("Please fill all the fields...");
         }
+    }
+
+    const updateBlog = () => {
+        const collectionById = doc(database, 'react-blogs', state.blogData.id)
+        updateDoc(collectionById, {
+            title: title,
+            privacy: privacy,
+            tag: tag,
+            banner: banner,
+            timestamp: moment().format('LL'),
+            blogPost: blogPost
+        }).then(() => {
+            navigate('/readBlogs')
+        })
     }
 
     const selectFile = (e) => {
@@ -109,6 +137,7 @@ export default function CreateBlogs({ databaseRef }) {
                     <input
                         className="form-input"
                         placeholder='Please Enter the Title'
+                        value={title}
                         onChange={(e) => setTitle(e.target.value)}
                     />
                 </Form.Field>
@@ -121,16 +150,21 @@ export default function CreateBlogs({ databaseRef }) {
                         onChange={(e) => getPrivacy(e)}
                     />
                 </Form.Field>
-                <Form.Field className="form-field">
+                <Form.Field>
                     <label className="form-label">Content</label>
-                    <Editor
-                        // editorState={editorState}
-                        toolbarClassName="toolbarClassName"
-                        wrapperClassName="wrapperClassName"
-                        editorClassName="editorClassName"
-                        onChange={BlogBodyChange}
-                    />
+                    <div className='mt-4'>
+                        <EditorToolbar />
+                        <ReactQuill
+                            theme="snow"
+                            placeholder={"Write something awesome..."}
+                            value={blogPost}
+                            className='react-quill'
+                            modules={modules}
+                            formats={formats}
+                            onChange={BlogBodyChange} />
+                    </div>
                 </Form.Field>
+
                 <Form.Field>
                     <label className="form-label">Tags</label>
                     <input
@@ -166,9 +200,15 @@ export default function CreateBlogs({ databaseRef }) {
                     />
                 </Form.Field> */}
                 <div className="btn-container">
-                    <button class="btn btn-green" onClick={submitBlogs}>
-                        Submit your Blog
-                    </button>
+                    {state ? (
+                        <button class="btn btn-green" onClick={updateBlog}>
+                            Update your Blog
+                        </button>
+                    ) : (
+                        <button class="btn btn-green" onClick={submitBlogs}>
+                            Submit your Blog
+                        </button>
+                    )}
                 </div>
                 <div className="mobile-only pb-5">
                     <Divider horizontal>Or</Divider>

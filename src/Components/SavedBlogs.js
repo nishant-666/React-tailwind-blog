@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getDocs, doc, deleteDoc } from 'firebase/firestore';
 import Sidebar from './Sidebar';
 import { useNavigate } from 'react-router-dom';
-import { Dimmer, Loader, Image, Popup, Button, Icon } from 'semantic-ui-react';
+import { Dimmer, Loader, Image, Popup, Divider, Icon } from 'semantic-ui-react';
 import Topbar from './Topbar';
 import NoData from './NoData';
 import UserImage from '../assets/userImage.png';
@@ -33,6 +33,13 @@ export default function SavedBlogs({ savedRef }) {
         }
     }, [])
 
+    const handleEdit = (data) => {
+        navigate('/createBlogs', {
+            state: {
+                blogData: data,
+            }
+        })
+    }
     const handleLogout = () => {
         localStorage.removeItem('User Name');
         localStorage.removeItem('User Email');
@@ -51,6 +58,13 @@ export default function SavedBlogs({ savedRef }) {
             })
     }
 
+    const readOneBlog = (data) => {
+        navigate(`/read/${data.id}`, {
+            state: {
+                blogData: data,
+            }
+        })
+    }
     return (
         <div className="read-form-container mt-3 mb-2">
             <ToastContainer />
@@ -62,7 +76,7 @@ export default function SavedBlogs({ savedRef }) {
                 <div className="mobile-only">
                     <div className="create-button">
                         <button class="btn btn-green" onClick={() => navigate('/createBlogs')}>
-                            Create Blogs
+                            Write a Blogs
                         </button>
                         <button class="btn btn-green ml-3" onClick={handleLogout}>
                             Log out
@@ -99,6 +113,11 @@ export default function SavedBlogs({ savedRef }) {
                                                     trigger={<BsThreeDotsVertical size="1.5rem" />}
                                                 >
                                                     <div className="popup-container">
+                                                        <p className="delete-blog" onClick={() => handleEdit(blog)}>
+                                                            <Icon size="large" name="edit" />
+                                                            Edit Post
+                                                        </p>
+                                                        <Divider />
                                                         <p className="delete-blog" onClick={() => handleDelete(blog.id)}>
                                                             <Icon size="large" name="trash" />
                                                             Delete Post
@@ -116,22 +135,11 @@ export default function SavedBlogs({ savedRef }) {
                                                 <p class="author-name">{blog.author.substring(0, 21)}</p>
                                             </div>
                                             <p class="blog-post">
-                                                {blog.blogPost.map((blogPost) => {
-                                                    return (
-                                                        <p>
-                                                            {blogPost.inlineStyleRanges.length > 0 ?
-                                                                blogPost.inlineStyleRanges[0].style === 'BOLD' ?
-                                                                    <p className="text-bold">{blogPost.text}</p> :
-                                                                    blogPost.inlineStyleRanges[0].style === 'ITALIC' ?
-                                                                        <p className="italic-text">{blogPost.text}</p> :
-                                                                        blogPost.inlineStyleRanges[0].style === 'UNDERLINE' ?
-                                                                            <p className="underlined-text">{blogPost.text}</p> : <p>{blogPost.text}</p>
-                                                                : <p>{blogPost.text}</p>
-                                                            }
-                                                        </p>
-                                                    )
-                                                })}
+                                                <div dangerouslySetInnerHTML={{ __html: `${blog.blogPost.substring(0, 100)}..` }}></div>
                                             </p>
+                                            <div className='readMore' onClick={() => readOneBlog(blog)}>
+                                                Read More..
+                                            </div>
                                         </div>
                                     </div>
                                 ) : (

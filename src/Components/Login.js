@@ -59,15 +59,12 @@ export default function Register() {
             <ToastContainer />
             <Card className="card-body">
                 <Card.Content>
-                    <Card.Header>Sign In to get started..</Card.Header>
-                </Card.Content>
-                <Card.Content>
                     <Feed>
                         <Feed.Event>
                             {/* <Feed.Label image='/images/avatar/small/jenny.jpg' /> */}
                             <Feed.Content>
                                 <Form>
-                                    <Form.Field>
+                                    {/* <Form.Field>
                                         <label>Email</label>
                                         <input
                                             type="email"
@@ -82,8 +79,8 @@ export default function Register() {
                                             placeholder='Please Enter your Password'
                                             onChange={(e) => setPassword(e.target.value)}
                                         />
-                                    </Form.Field>
-                                    <div className="btn-centered">
+                                    </Form.Field> */}
+                                    {/* <div className="btn-centered">
                                         <button
                                             onClick={handleRegister}
                                             class="regiser-btn px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">
@@ -94,8 +91,12 @@ export default function Register() {
                                             class="login-btn px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">
                                             Create your Account..
                                         </button>
+                                    </div> */}
+                                    {/* <Divider horizontal>Or</Divider> */}
+                                    <div className='signup-header'>
+                                        <h3>Blogs by Cybernatico</h3>
+                                        <p>Sign In to Read Blogs !</p>
                                     </div>
-                                    <Divider horizontal>Or</Divider>
                                     <div className="google-btn">
                                         <GoogleButton
                                            onClick={authWithGoogle}

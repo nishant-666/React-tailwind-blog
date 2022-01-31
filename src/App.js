@@ -7,6 +7,7 @@ import Register from './Components/Register';
 import Login from './Components/Login';
 import MyBlogs from './Components/MyBlogs';
 import SavedBlogs from './Components/SavedBlogs';
+import Read from './Components/Read';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 const databaseRef = collection(database, 'react-blogs');
@@ -27,6 +28,7 @@ function App() {
           <Route exact path='/myBlogs' element={<MyBlogs
             databaseRef={databaseRef}
           />} />
+          <Route exact path='/read/:id' element={<Read />} />
           <Route exact path='/readBlogs' element={<ReadBlogs
             databaseRef={databaseRef} savedRef={savedRef}
           />} />

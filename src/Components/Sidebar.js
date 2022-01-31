@@ -15,7 +15,7 @@ export default function Sidebar() {
             <div className="sidebar-menu">
                 <ul>
                     <Link to={'/createBlogs'}>
-                        <li className='sidebar-lists'>Create Blogs</li>
+                        <li className='sidebar-lists'>Write a Blog</li>
                     </Link>
                     <Link to={'/readBlogs'}>
                         <li className='sidebar-lists'>Public Blogs</li>
