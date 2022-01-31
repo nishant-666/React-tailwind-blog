@@ -35,6 +35,7 @@ export default function CreateBlogs({ databaseRef }) {
         if (state) {
             const { blogData } = state;
             setTitle(blogData.title)
+            setBanner(blogData.banner)
             setTag(blogData.tag)
             setPrivacy(blogData.privacy)
             setBlogPost(blogData.blogPost)
