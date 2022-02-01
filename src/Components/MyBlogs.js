@@ -136,7 +136,7 @@ export default function MyBlogs({ databaseRef }) {
                                             <div dangerouslySetInnerHTML={{ __html: `${blog.blogPost.substring(0, 100)}..` }}></div>
                                         </p>
                                         <div className='readMore'>
-                                            <a href={`https://single-blogs.web.app/read/${blog.id}`} target="_blank">Read More...</a>
+                                            <a className='read-link' href={`https://single-blogs.web.app/read/${blog.id}`} target="_blank">Read More...</a>
                                         </div>
                                     </div>
                                 </div>
