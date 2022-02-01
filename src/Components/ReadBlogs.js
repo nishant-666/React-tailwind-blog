@@ -78,14 +78,6 @@ export default function ReadBlogs({ databaseRef, savedRef }) {
             })
     }
 
-    const readOneBlog = (data) => {
-        navigate(`/read/${data.id}`, {
-            state: {
-                blogData: data,
-            }
-        })
-    }
-
     return (
         <div className="read-form-container mt-3 mb-2">
             <ToastContainer />
@@ -169,8 +161,8 @@ export default function ReadBlogs({ databaseRef, savedRef }) {
                                                     <div dangerouslySetInnerHTML={{ __html: `${blog.blogPost.substring(0, 200)}..` }}></div>
                                                 </p>
 
-                                                <div className='readMore' onClick={() => readOneBlog(blog)}>
-                                                    Read More...
+                                                <div className='readMore'>
+                                                    <a href={`https://single-blogs.web.app/read/${blog.id}`} target="_blank">Read More...</a>
                                                 </div>
                                             </div>
                                         </div>

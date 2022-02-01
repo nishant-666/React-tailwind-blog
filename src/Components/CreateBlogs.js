@@ -76,6 +76,7 @@ export default function CreateBlogs({ databaseRef }) {
             title: title,
             privacy: privacy,
             tag: tag,
+            userEmail: userEmail,
             banner: banner,
             timestamp: moment().format('LL'),
             blogPost: blogPost
