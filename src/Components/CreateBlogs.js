@@ -56,6 +56,7 @@ export default function CreateBlogs({ databaseRef }) {
                 tag: tag,
                 avatar: localStorage.getItem('PhotoURL'),
                 timestamp: moment().format('LL'),
+                userEmail: userEmail,
                 author: username ? username : userEmail,
                 banner: banner,
                 blogPost: blogPost

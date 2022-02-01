@@ -3,7 +3,6 @@ import { app, database } from './firebase-config'
 import { collection } from 'firebase/firestore'
 import ReadBlogs from './Components/ReadBlogs';
 import CreateBlogs from './Components/CreateBlogs';
-import Register from './Components/Register';
 import Login from './Components/Login';
 import MyBlogs from './Components/MyBlogs';
 import SavedBlogs from './Components/SavedBlogs';
@@ -20,7 +19,6 @@ function App() {
   return (
     <div className="main-body">
       <Routes>
-        <Route exact path='/register' element={<Register />} />
         <Route exact path='/login' element={<Login />} />
       </Routes>
       <div className="blog-body">

@@ -16,6 +16,7 @@ export default function MyBlogs({ databaseRef }) {
     const [dataLoading, setDataLoading] = useState(true);
     const [userName, setUsername] = useState('')
     const [photoURL, setPhotoURL] = useState('');
+    const [savedEmail, setEmail] = useState('')
     const getBlogs = async () => {
         const blogs = await getDocs(databaseRef);
         setBlogs(blogs.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
@@ -28,6 +29,7 @@ export default function MyBlogs({ databaseRef }) {
         }
         else {
             setUsername(localStorage.getItem('User Name'))
+            setEmail(localStorage.getItem('User Email'))
             getBlogs();
             setPhotoURL(localStorage.getItem('PhotoURL'))
         }
@@ -104,7 +106,7 @@ export default function MyBlogs({ databaseRef }) {
                 blogs.length > 0 ? (
                     blogs.map((blog) => {
                         return (
-                            blog.author === userName ? (
+                            blog.userEmail === savedEmail ? (
                                 <div class="blog-posts">
                                     <div class="blog-content">
                                         <div className="three-dots">

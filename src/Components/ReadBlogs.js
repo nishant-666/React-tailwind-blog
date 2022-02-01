@@ -14,7 +14,8 @@ export default function ReadBlogs({ databaseRef, savedRef }) {
     let navigate = useNavigate();
     const [blogs, setBlogs] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
-    const [userName, setUsername] = useState('')
+    const [userName, setUsername] = useState('');
+    const [userEmail, setEmail] = useState('')
     const getBlogs = async () => {
         const blogs = await getDocs(databaseRef);
         setBlogs(blogs.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
@@ -27,6 +28,7 @@ export default function ReadBlogs({ databaseRef, savedRef }) {
         }
         else {
             setUsername(localStorage.getItem('User Name'))
+            setEmail(localStorage.getItem('User Email'))
             getBlogs();
         }
     }, [])
@@ -132,7 +134,7 @@ export default function ReadBlogs({ databaseRef, savedRef }) {
                                                 trigger={<BsThreeDotsVertical size="1.5rem" />}
                                             >
                                                 <div className="popup-container">
-                                                    {blog.author === userName ? (
+                                                    {blog.userEmail === userEmail ? (
                                                         <div>
                                                             <p className="delete-blog" onClick={() => handleEdit(blog)}>
                                                                 <Icon size="large" name="edit" />
