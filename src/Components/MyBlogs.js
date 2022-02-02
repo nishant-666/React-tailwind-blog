@@ -22,6 +22,11 @@ export default function MyBlogs({ databaseRef }) {
         setBlogs(blogs.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
         setDataLoading(false);
     }
+
+    const navigateToURL = (id) => {
+        window.location.href = `https://single-blogs.web.app/read/${id}`;
+    }
+
     useEffect(() => {
         let userToken = sessionStorage.getItem('Auth Key')
         if (!userToken) {
@@ -136,7 +141,7 @@ export default function MyBlogs({ databaseRef }) {
                                             <div dangerouslySetInnerHTML={{ __html: `${blog.blogPost.substring(0, 100)}..` }}></div>
                                         </p>
                                         <div className='readMore'>
-                                            <a className='read-link' href={`https://single-blogs.web.app/read/${blog.id}`} target="_blank">Read More...</a>
+                                        <p className='read-link' onClick={() => navigateToURL(blog.id)}>Read More...</p>
                                         </div>
                                     </div>
                                 </div>

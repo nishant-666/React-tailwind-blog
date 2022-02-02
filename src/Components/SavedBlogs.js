@@ -57,6 +57,11 @@ export default function SavedBlogs({ savedRef }) {
                 });
             })
     }
+
+    const navigateToURL = (id) => {
+        window.open(`https://single-blogs.web.app/read/${id}`, "_blank");
+    }
+
     return (
         <div className="read-form-container mt-3 mb-2">
             <ToastContainer />
@@ -130,7 +135,7 @@ export default function SavedBlogs({ savedRef }) {
                                                 <div dangerouslySetInnerHTML={{ __html: `${blog.blogPost.substring(0, 100)}..` }}></div>
                                             </p>
                                             <div className='readMore'>
-                                                <a className='read-link' href={`https://single-blogs.web.app/read/${blog.id}`} target="_blank">Read More...</a>
+                                            <p className='read-link' onClick={() => navigateToURL(blog.id)}>Read More...</p>
                                             </div>
                                         </div>
                                     </div>

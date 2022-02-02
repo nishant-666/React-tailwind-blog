@@ -93,9 +93,10 @@
 
 .blog-post {
   color: #414449;
-  font-size: 2rem;
+  font-size: 1.5rem;
   line-height: 1.5;
   margin-top: 20px;
+  font-family: Poppins;
 }
 
 .sidebar-main {
@@ -492,14 +493,13 @@
 }
 
 .readMore{
-  font-size: 30px;
-  color: gray;
-  font-style: italic;
+  font-size: 16px;
   cursor: pointer;
   margin-top: 30px;
   margin-bottom: 20px;
 }
 
 .read-link{
-  color: #1a237e;
+  color: gray;
+  font-family: Poppins;
 }
