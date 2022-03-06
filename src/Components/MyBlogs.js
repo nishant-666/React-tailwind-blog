@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { getDocs, doc, deleteDoc } from 'firebase/firestore';
+import { onSnapshot, doc, deleteDoc } from 'firebase/firestore';
 import Sidebar from './Sidebar';
 import { useNavigate } from 'react-router-dom';
 import { Dimmer, Loader, Image, Popup, Divider, Icon } from 'semantic-ui-react';
 import Topbar from './Topbar';
+import { onAuthStateChanged, getAuth } from 'firebase/auth';
 import NoData from './NoData';
 import UserImage from '../assets/userImage.png';
 import { database } from '../firebase-config';
@@ -12,14 +13,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import { BsThreeDotsVertical } from "react-icons/bs";
 export default function MyBlogs({ databaseRef }) {
     let navigate = useNavigate();
+    let auth = getAuth();
     const [blogs, setBlogs] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
     const [userName, setUsername] = useState('')
     const [photoURL, setPhotoURL] = useState('');
     const [savedEmail, setEmail] = useState('')
     const getBlogs = async () => {
-        const blogs = await getDocs(databaseRef);
-        setBlogs(blogs.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+        await onSnapshot(databaseRef, (blogs) => {
+            setBlogs(blogs.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+        });
         setDataLoading(false);
     }
 
@@ -28,16 +31,17 @@ export default function MyBlogs({ databaseRef }) {
     }
 
     useEffect(() => {
-        let userToken = sessionStorage.getItem('Auth Key')
-        if (!userToken) {
-            navigate('/login')
-        }
-        else {
-            setUsername(localStorage.getItem('User Name'))
-            setEmail(localStorage.getItem('User Email'))
-            getBlogs();
-            setPhotoURL(localStorage.getItem('PhotoURL'))
-        }
+        onAuthStateChanged(auth, (userData) => {
+            if(!userData){
+                navigate('/login')
+            }
+            else {
+                setUsername(localStorage.getItem('User Name'))
+                setEmail(localStorage.getItem('User Email'))
+                getBlogs();
+                setPhotoURL(localStorage.getItem('PhotoURL'))
+            }
+        })
     }, [])
 
     const handleLogout = () => {
@@ -141,7 +145,7 @@ export default function MyBlogs({ databaseRef }) {
                                             <div dangerouslySetInnerHTML={{ __html: `${blog.blogPost.substring(0, 100)}..` }}></div>
                                         </p>
                                         <div className='readMore'>
-                                        <p className='read-link' onClick={() => navigateToURL(blog.id)}>Read More...</p>
+                                            <p className='read-link' onClick={() => navigateToURL(blog.id)}>Read More...</p>
                                         </div>
                                     </div>
                                 </div>

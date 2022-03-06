@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Select, Button, Icon, Divider } from 'semantic-ui-react';
-import { Editor } from "react-draft-wysiwyg";
+import { Form, Select, Button, Divider } from 'semantic-ui-react';
+import { onAuthStateChanged, getAuth } from 'firebase/auth';
 import { useNavigate, useLocation } from 'react-router-dom';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { addDoc, doc, updateDoc } from 'firebase/firestore';
@@ -20,6 +20,7 @@ const countryOptions = [
 ]
 
 export default function CreateBlogs({ databaseRef }) {
+    let auth = getAuth();
     let navigate = useNavigate();
     const { state } = useLocation();
     const [title, setTitle] = useState('');
@@ -114,12 +115,15 @@ export default function CreateBlogs({ databaseRef }) {
     }
 
     useEffect(() => {
-        let userToken = sessionStorage.getItem('Auth Key');
-        setUserName(localStorage.getItem('User Name'));
-        setUserEmail(localStorage.getItem('User Email'))
-        if (!userToken) {
-            navigate('/login')
-        }
+        onAuthStateChanged(auth, (userData) => {
+            if(userData){
+                setUserName(localStorage.getItem('User Name'));
+                setUserEmail(localStorage.getItem('User Email'))
+            }
+            else{
+                navigate('/login')
+            }
+        })
     }, [])
 
     const readBlogs = () => {

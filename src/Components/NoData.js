@@ -1,15 +1,20 @@
 import React from 'react';
 import NoDataImg from '../assets/NoDataImg.jpg';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import { getAuth, signOut } from 'firebase/auth';
 
 export default function NoData() {
+    let auth = getAuth();
     let navigate = useNavigate();
 
     const handleLogout = () => {
-        localStorage.removeItem('User Name');
-        localStorage.removeItem('User Email');
-        sessionStorage.removeItem('Auth Key');
-        navigate('/login')
+        signOut(auth)
+        .then(() => {
+            localStorage.removeItem('User Name');
+            localStorage.removeItem('User Email');
+            localStorage.removeItem('PhotoURL');
+            navigate('/login')
+        })
     }
     return (
         <div className="no-data-container">

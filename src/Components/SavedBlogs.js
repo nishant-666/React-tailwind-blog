@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { getDocs, doc, deleteDoc } from 'firebase/firestore';
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import { onSnapshot, doc, deleteDoc } from 'firebase/firestore';
 import Sidebar from './Sidebar';
 import { useNavigate } from 'react-router-dom';
 import { Dimmer, Loader, Image, Popup, Divider, Icon } from 'semantic-ui-react';
@@ -12,25 +13,28 @@ import 'react-toastify/dist/ReactToastify.css';
 import { BsThreeDotsVertical } from "react-icons/bs";
 export default function SavedBlogs({ savedRef }) {
     let navigate = useNavigate();
+    let auth = getAuth();
     const [blogs, setBlogs] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
     const [savedEmail, setEmail] = useState('')
     const [photoURL, setPhotoURL] = useState('');
     const getBlogs = async () => {
-        const blogs = await getDocs(savedRef);
-        setBlogs(blogs.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+        onSnapshot(savedRef, (blogs) => {
+            setBlogs(blogs.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+        })
         setDataLoading(false);
     }
     useEffect(() => {
-        let userToken = sessionStorage.getItem('Auth Key')
-        if (!userToken) {
-            navigate('/login')
-        }
-        else {
-            setEmail(localStorage.getItem('User Email'))
-            getBlogs();
-            setPhotoURL(localStorage.getItem('PhotoURL'))
-        }
+        onAuthStateChanged(auth, (userData) => {
+            if (!userData) {
+                navigate('/login')
+            }
+            else {
+                setEmail(localStorage.getItem('User Email'))
+                getBlogs();
+                setPhotoURL(localStorage.getItem('PhotoURL'))
+            }
+        })
     }, [])
 
     const handleEdit = (data) => {
@@ -41,10 +45,13 @@ export default function SavedBlogs({ savedRef }) {
         })
     }
     const handleLogout = () => {
-        localStorage.removeItem('User Name');
-        localStorage.removeItem('User Email');
-        sessionStorage.removeItem('Auth Key');
-        navigate('/login')
+        signOut(auth)
+        .then(() => {
+            navigate('/login');
+            localStorage.removeItem('User Name');
+            localStorage.removeItem('User Email');
+            localStorage.removeItem('PhotoURL');
+        })
     }
 
     const handleDelete = (id) => {

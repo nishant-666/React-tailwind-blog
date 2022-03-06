@@ -1,14 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import { getAuth, signOut } from 'firebase/auth';
 import './Sidebar.css';
 export default function Sidebar() {
     let navigate = useNavigate();
+    const auth = getAuth()
     const handleLogout = () => {
-        localStorage.removeItem('User Name');
-        localStorage.removeItem('User Email');
-        sessionStorage.removeItem('Auth Key');
-        navigate('/login')
+        signOut(auth)
+            .then(() => {
+                navigate('/login');
+                localStorage.removeItem('User Name');
+                localStorage.removeItem('User Email');
+                localStorage.removeItem('PhotoURL');
+            })
+            .catch((error) => {
+                console.log(error.message)
+            });
     }
     return (
         <div className="sidebar-main">
