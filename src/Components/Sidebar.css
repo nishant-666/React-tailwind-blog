@@ -50,18 +50,17 @@
 }
 
 .sidebar-menu {
-    width: 250px;
+    width: 200px;
     color: whitesmoke;
     height: 100vh;
     font-family: "Poppins", sans-serif;
 }
 
 .sidebar-lists {
-    padding: 15px;
-    font-size: 25px;
+    padding: 10px 0;
+    font-size: 18px;
     cursor: pointer;
     color: white;
-
 }
 
 .sidebar-lists:hover {
